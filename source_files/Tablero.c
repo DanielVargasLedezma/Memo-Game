@@ -21,11 +21,11 @@ void inicializarTablero(int n, int m)
 
     table.col_count = m;
 
-    table.tablero = malloc(n * sizeof(Casilla));
+    table.tablero = (Casilla**) malloc(n * sizeof(Casilla*));
 
     for (int i = 0; i < n; i++)
     {
-        (table.tablero)[i] = malloc(m * sizeof(Casilla));
+        (table.tablero)[i] = (Casilla*) malloc(m * sizeof(Casilla));
     }
     
     for (int i = 0; i < table.row_count; i++)
@@ -217,7 +217,7 @@ int checkIfRevealedAreEquals()
     {
         for (int j = 0; j < table.col_count; j++)
         {
-            if(i != i_first && j != j_first){
+            if(i != i_first || j != j_first){
                 if(table.tablero[i][j].estado == 2)
                 {
                     if(table.tablero[i][j].letra == table.tablero[i_first][j_first].letra)
@@ -240,4 +240,6 @@ void liberarMemoriaTablero()
     {
         free(table.tablero[i]);
     }
+    
+    free(table.tablero);
 }

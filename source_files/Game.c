@@ -19,7 +19,7 @@ void empezarJuego()
 {
     accionConsecutiva = 0;
     
-    inicializarTablero(4, 4);
+    inicializarTablero(6, 6);
     
     menu();
     
@@ -30,6 +30,8 @@ void printTable()
 {    
 //    printf("\n \n \n \n \t \t");
     
+    int tam = table.col_count * table.row_count + 9;
+    
     for(int j = 0; j < table.col_count; j++)
     {
         printf("\t %i", j);
@@ -37,7 +39,7 @@ void printTable()
     
     printf("\n \n \t");
     
-    for(int j = 0; j < 27; j++)
+    for(int j = 0; j < tam; j++)
     {
         printf("*");
     }
@@ -103,6 +105,7 @@ void menu()
     if(cantidad_parejas == cantidad_maxima)
     {
         printf("Felicidades !! \n Usted gano el juego \n Movimientos realizados: %i \n", cantidad_movimientos);
+        printf("Saliendo en 3 ");
         fflush(stdout);
         sleep(2);
         printf("2 ");
@@ -212,12 +215,21 @@ int pedirAccion()
     if(accionConsecutiva == 2)
     {
         printf("\e[1;1H\e[2J");
+        
+        int resultado_verificacion = checkIfRevealedAreEquals();
 
         printTable();
         
-        sleep(2);
+        if(resultado_verificacion == 1)
+        {
+            printf("Las casillas reveladas son iguales.\n");
+        }
+        else
+        {
+            printf("Las casillas reveladas son diferentes.\n");
+        }
         
-        int resultado_verificacion = checkIfRevealedAreEquals();
+        sleep(3);
         
         if(resultado_verificacion == 1)
         {
